@@ -213,10 +213,11 @@ info:
     name: 5eBits
     url: https://github.com/5e-bits
 servers:
-  - url: https://www.dnd5eapi.co
+  - url: $EXTERNAL_API_URL:$PORT
+    description: Public API
     description: Production
-  - url: http://127.0.0.1:3000
-    description: Local Development
+  - url: $INTERNAL_API_URL:$PORT
+    description: Internal API
 tags:
   - name: Common
     description: General API endpoints and utilities
