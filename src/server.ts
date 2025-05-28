@@ -61,8 +61,11 @@ export default async () => {
   )
 
   // Register routes
-  app.get('/', (req, res) => {
+  app.get('/', (_req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'))
+  })
+  app.get('/health', (_req, res) => {
+    res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() })
   })
   app.get('/docs', docsController)
   app.use('/api', apiRoutes)
@@ -71,8 +74,6 @@ export default async () => {
     app.use(bugsnagMiddleware.errorHandler)
   }
 
-  if (errorHandlerMiddleware) {
-    app.use(errorHandlerMiddleware)
-  }
+  app.use(errorHandlerMiddleware)
   return app
 }
