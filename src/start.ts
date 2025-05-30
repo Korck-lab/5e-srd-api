@@ -8,7 +8,7 @@ const start = async () => {
   const app = await createApp()
 
   console.log('Starting server...')
-  const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000
+  const port = process.env.PORT != null && process.env.PORT.trim() !== '' ? parseInt(process.env.PORT, 10) : 3000
   const server = app.listen(port, () => {
     console.log(`Listening on port ${port}! 🚀`)
   })
@@ -30,6 +30,9 @@ const initializeServices = async () => {
     mongoose.set('strictQuery', false)
 
     await mongoose.connect(mongodbUri)
+    //list all collections to ensure connection is established
+    const collections = await mongoose.connection.db!.listCollections().toArray()
+    console.log('Connected to MongoDB, collections:', collections.map(c => c.name))
     console.log('Database connection ready')
 
     redisClient.on('error', (err) => console.log('Redis Client Error', err))
@@ -42,7 +45,7 @@ const initializeServices = async () => {
 
     console.log('Prewarm Redis')
     await prewarmCache()
-    
+
     console.log('All services initialized successfully')
   } catch (error) {
     console.error('Service initialization failed:', error)
