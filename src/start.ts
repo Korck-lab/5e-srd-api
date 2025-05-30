@@ -25,10 +25,12 @@ const start = async () => {
 const initializeServices = async () => {
   try {
     console.log('Setting up MongoDB')
+
+
     // Mongoose: the `strictQuery` option will be switched back to `false` by
     // default in Mongoose 7, when we update to Mongoose 7 we can remove this.
     mongoose.set('strictQuery', false)
-
+    console.log('Connecting to MongoDB at', mongodbUri)
     await mongoose.connect(mongodbUri)
     //list all collections to ensure connection is established
     const collections = await mongoose.connection.db!.listCollections().toArray()

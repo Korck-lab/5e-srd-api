@@ -209,11 +209,14 @@ info:
   license:
     name: MIT License
     url: 'https://github.com/5e-bits/5e-srd-api/blob/main/LICENSE.md'
+  contact:
+    name: 5eBits
+    url: https://github.com/5e-bits
 servers:
-  - url: https://5e-srd-api-dev.up.railway.app
+  - url: $EXTERNAL_API_URL
     description: Production
-  - url: http://localhost:3000
-    description: Development
+  - url: $INTERNAL_API_URL:$PORT
+    description: Internal API
 tags:
   - name: Common
     description: General API endpoints and utilities

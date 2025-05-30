@@ -17,11 +17,15 @@ const __filename = fileURLToPath(import.meta.url)
 
 const __dirname = path.dirname(__filename)
 
-const rateLimitWindowMs = process.env.RATE_LIMIT_WINDOW_MS
-  ? parseInt(process.env.RATE_LIMIT_WINDOW_MS, 10)
-  : 1000 // Default 1 second
+const _rawRateLimitWindowMs = process.env.RATE_LIMIT_WINDOW_MS;
+const rateLimitWindowMs = _rawRateLimitWindowMs != null && _rawRateLimitWindowMs.trim() !== ''
+  ? parseInt(_rawRateLimitWindowMs, 10)
+  : 1000; // Default 1 second
 
-const rateLimitMax = process.env.RATE_LIMIT_MAX ? parseInt(process.env.RATE_LIMIT_MAX, 10) : 50 // Default 50
+const _rawRateLimitMax = process.env.RATE_LIMIT_MAX;
+const rateLimitMax = _rawRateLimitMax != null && _rawRateLimitMax.trim() !== ''
+  ? parseInt(_rawRateLimitMax, 10)
+  : 50; // Default 50
 
 const limiter = rateLimit({
   windowMs: rateLimitWindowMs,
