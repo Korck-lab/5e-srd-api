@@ -15,14 +15,14 @@ const mongodbUri = (() => {
   if (dbName === undefined || dbName === '') {
     throw new Error('Missing MongoDB database name in environment')
   }
-  
+
   // Properly construct MongoDB URI with database name
   // Split URI at query parameters if they exist
   const [baseUri, queryParams] = uri.split('?')
-  const fullUri = queryParams 
+  const fullUri = queryParams
     ? `${baseUri}/${dbName}?${queryParams}`
     : `${baseUri}/${dbName}`
-  
+
   // LOG the MongoDB URI for debugging purposes
   console.log(`Using MongoDB URI: ${fullUri} with database: ${dbName}`)
   return fullUri
