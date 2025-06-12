@@ -51,4 +51,4 @@ COPY --from=builder /app/tsconfig.json ./
 EXPOSE ${PORT:-3000}
 
 # Start the main process.
-CMD ["node", "--experimental-specifier-resolution=node", "dist/src/start.js"]
+CMD ["node", "--experimental-specifier-resolution=node", "/app/dist/src/start.js"]
